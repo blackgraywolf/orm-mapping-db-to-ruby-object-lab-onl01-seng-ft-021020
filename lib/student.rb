@@ -26,6 +26,7 @@ def self.all
    SQL
     student_row = DB[:conn].execute(sql, name)[0]
     self.new_from_db(student_row)
+<<<<<<< HEAD
   end
   
   def self.all_students_in_grade_9
@@ -69,6 +70,50 @@ DB[:conn].execute(sql).collect do |row|
     
   end
   
+=======
+  end
+  
+  def self.all_students_in_grade_9
+  sql = "SELECT * FROM students WHERE grade = 9 LIMIT 1"
+DB[:conn].execute(sql).collect do |row|
+  self.new_from_db(row)
+  end
+end
+
+ 
+   
+   def self.students_below_12th_grade
+    sql = "SELECT * FROM students WHERE grade < 12"
+DB[:conn].execute(sql).collect do |row|
+  self.new_from_db(row)
+    end
+  end	  
+
+def self.first_X_students_in_grade_10(num)
+    sql = <<-SQL
+      SELECT * FROM students
+      WHERE grade = 10
+      LIMIT ?
+      SQL
+
+      DB[:conn].execute(sql, num).map do |row|
+        self.new_from_db(row)
+      end
+  end
+
+  def self.first_student_in_grade_10
+    sql = "SELECT * FROM students WHERE grade = 10 LIMIT 1"
+    first_student_row = DB[:conn].execute(sql)[0]
+    self.new_from_db(first_student_row)
+  end
+
+  def self.all_students_in_grade_X(x)
+    sql = "SELECT * FROM students WHERE grade = ?"
+    DB[:conn].execute(sql, x)
+    
+  end
+  
+>>>>>>> 79b985edc154fb37064780032e12ba90763130c5
 #   	1. class Song
 # 	2. def self.find_by_name(name)
 # 	3. sql = <<-SQL
